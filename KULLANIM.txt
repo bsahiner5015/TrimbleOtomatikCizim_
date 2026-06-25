@@ -1,0 +1,56 @@
+TRIMBLE OTOMATİK ÇİZİM  —  V29 (Kaynak Kod)
+=============================================
+
+KURULUM
+-------
+1. Python 3.11+ yükleyin (https://python.org)
+2. Bağımlılıkları yükleyin:
+       pip install -r requirements.txt
+
+KULLANIM — GUI
+--------------
+       python main.py
+
+KULLANIM — Robot (GUI'siz)
+--------------------------
+       python main.py --robot
+       python main.py --robot --config robot_config.json
+
+İŞ AKIŞI
+---------
+1. LAZ/LAS dosyalarını  giris/  klasörüne koyun.
+2. "İŞLEMLERE BAŞLA" butonuna tıklayın (veya --robot ile çalıştırın).
+3. cikti/<dosya_adi>/  içinde üretilen dosyalar:
+       *.dxf             →  AutoCAD/Netcad ile açın
+       NESNELER.json     →  Tespit edilen nesneler
+       YAPI_ANALIZ.json  →  Detaylı analiz
+       rapor.txt         →  İşlem raporu
+4. İşlenen LAZ dosyaları  islenmis/  klasörüne taşınır.
+
+KATMAN AÇIKLAMALARI
+-------------------
+  B_Mesken          Konut binaları
+  B_Depo            Depo / müştemilat
+  B_Sundurma        Sundurma / çardak
+  B_Kapi            Kapı geçiti
+  Sinir_Duvar       Kesin sınır duvarı
+  Sinir_Duvar_Aday  Olası sınır duvarı
+  D_elektirik_Direği  Elektrik direği
+  D_Telefon_direği  Telefon direği
+
+PARAMETRE AYARLAMA (robot_config.json)
+---------------------------------------
+  building_cell_size         → Grid çözünürlüğü (küçük = hassas, yavaş)
+  building_min_vertical_span → Min dikey yayılım (m) — yapı tespiti eşiği
+  building_min_area          → Min yapı alanı (m²)
+  building_max_area          → Max yapı alanı (m²)
+  pole_max_elek              → Max elektrik direği sayısı
+  pole_max_tel               → Max telefon direği sayısı
+  wall_min_length            → Min duvar uzunluğu (m)
+  sundurma_min_area          → Sundurma min alanı (m²)
+  sundurma_max_area          → Sundurma max alanı (m²)
+
+EXE DERLEME (isteğe bağlı)
+---------------------------
+       pip install pyinstaller
+       pyinstaller --onefile --windowed --name TrimbleOtomatikCizim main.py
