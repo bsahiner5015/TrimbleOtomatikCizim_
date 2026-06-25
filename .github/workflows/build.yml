@@ -24,27 +24,20 @@ jobs:
         pip install pyinstaller
 
     - name: EXE derle
-      run: |
-        pyinstaller --onefile --windowed --name TrimbleOtomatikCizim ^
-          --hidden-import=laspy.lasappender ^
-          --hidden-import=laspy.laswriter ^
-          --hidden-import=laspy.reading ^
-          --hidden-import=cv2 ^
-          --collect-all laspy ^
-          --collect-all lazrs ^
-          main.py
+      run: pyinstaller --onefile --windowed --name TrimbleOtomatikCizim --hidden-import=laspy.lasappender --hidden-import=laspy.laswriter --hidden-import=laspy.reading --hidden-import=cv2 --collect-all laspy --collect-all lazrs main.py
 
     - name: Tam klasoru hazirla
+      shell: pwsh
       run: |
-        mkdir TrimbleOtomatikCizim_DIST
-        copy dist\TrimbleOtomatikCizim.exe TrimbleOtomatikCizim_DIST\
-        copy robot_config.json TrimbleOtomatikCizim_DIST\
-        copy KULLANIM.txt TrimbleOtomatikCizim_DIST\
-        copy BASLAT.bat TrimbleOtomatikCizim_DIST\
-        copy robot_calistir.bat TrimbleOtomatikCizim_DIST\
-        mkdir TrimbleOtomatikCizim_DIST\giris
-        mkdir TrimbleOtomatikCizim_DIST\cikti
-        mkdir TrimbleOtomatikCizim_DIST\islenmis
+        New-Item -ItemType Directory -Path TrimbleOtomatikCizim_DIST
+        Copy-Item dist\TrimbleOtomatikCizim.exe TrimbleOtomatikCizim_DIST\
+        Copy-Item robot_config.json TrimbleOtomatikCizim_DIST\
+        Copy-Item KULLANIM.txt TrimbleOtomatikCizim_DIST\
+        Copy-Item BASLAT.bat TrimbleOtomatikCizim_DIST\
+        Copy-Item robot_calistir.bat TrimbleOtomatikCizim_DIST\
+        New-Item -ItemType Directory -Path TrimbleOtomatikCizim_DIST\giris
+        New-Item -ItemType Directory -Path TrimbleOtomatikCizim_DIST\cikti
+        New-Item -ItemType Directory -Path TrimbleOtomatikCizim_DIST\islenmis
 
     - name: Artifact yukle
       uses: actions/upload-artifact@v4
